@@ -2,11 +2,12 @@
 #include <com/meta/Poke/client.hpp>
 
 #include <iostream>
+#include <set>
 #include <string>
-#include <vector>
 
 auto multi_poke(sdbusplus::async::context& ctx,
-                std::vector<std::string> sources) -> sdbusplus::async::task<>
+                std::set<std::string> sources)
+    -> sdbusplus::async::task<>
 {
     auto poke_server = sdbusplus::client::com::meta::Poke(ctx)
                            .service("com.meta.Poke")
@@ -15,7 +16,8 @@ auto multi_poke(sdbusplus::async::context& ctx,
     for (auto& source : sources)
     {
         auto count = co_await poke_server.poke(source);
-        std::cout << source << " has poked " << count << " times." << std::endl;
+        std::cout << source << " has poked "
+                  << count << " times." << std::endl;
     }
 }
 
