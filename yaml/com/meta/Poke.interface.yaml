@@ -1,0 +1,12 @@
+properties:
+    - name: LastPoke
+      type: string
+
+methods:
+    - name: Poke
+      parameters:
+          - name: source
+            type: string
+      returns:
+          - name: count
+            type: size
